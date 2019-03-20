@@ -32,8 +32,8 @@ class Hill_Algorithm(object):
         Arguments:
             msg {str} -- Mensaje
         """
-        self.msg = msg
-        self.len_msg = len(msg)
+        self.msg: str = msg
+        self.len_msg: int = len(msg)
 
     def _msg_to_matrix(self, len_key: int) -> Matrix:
         """Convierte el mensaje a una matriz.
