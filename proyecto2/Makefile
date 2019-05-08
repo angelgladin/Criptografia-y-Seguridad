@@ -16,4 +16,4 @@ clean:
 	@rm src/*.class 2> /dev/null || true
 
 run:
-	@cd src && scala Demo.scala
+	@cd src && scala Demo
