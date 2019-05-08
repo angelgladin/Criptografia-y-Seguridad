@@ -403,3 +403,31 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Scala
+*.class
+*.log
+
+# sbt specific
+.cache
+.cache-main
+.cache-tests
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Ignore Eclipse files
+.project
+.classpath
+.prefs
+.settings
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+/bin/
