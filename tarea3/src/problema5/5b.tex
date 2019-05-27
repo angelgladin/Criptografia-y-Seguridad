@@ -1,0 +1,58 @@
+Sabemos que en el criptosistem ECIES simplificado, el mensaje cifrado es de la forma $((\mathbf{Z_{p}} \times \mathbf{Z_{2}}) \times \mathbf{Z}_{p}*) = (y_{1}, y_{2} )$.
+
+Como el orden de $P = (2,9)$ es el mismo que $#\textbf{E}$, P es un generador y puede ser usado en la encriptación de ECIES simplificado.
+
+Los puntos de compresión recibidos son: {(18,1), (3,1), (17,0), (28,0)} 
+Debemos calcular sus respectivos puntos de descompresión.
+Sabemos que 
+\begin{equation}
+    z \leftarrow (x^{3} + 2x +7) mod 31
+\end{equation}
+
+Como z no es R-C mod 31, podemos evaluar 
+\begin{equation}
+    z \leftarrow y^{2} = ((18)^{3} + 2(18) + 7) mod 31 = 16 mod 31 
+\end{equation}
+
+Por lo que $z = \pm 4 mod 31 $
+Sabemos que por construcción del punto de compresión, la segunda entrada se calcula al sacar $mod 2$ al punto $kP$, por lo que el valor de $z mod 2$ debe ser igual a la segunda entrada del punto de compresión, que en este caso es $1$, de esta forma $z = -4 = 27 mod 31 = 1 mod 2$, cosa que no sucede con $z = 2 = 2 mod 31 = 0 mod 2$.
+
+Como $Q = (8,15)$, obtenemos el punto $8*(18,27) = (15,8)  = (x_{0}, y_{0})$
+Finalmente desciframos el mensaje, usando $d_{k}(y) = y_{2} * (x_{0})^{-1} mod q$, que en nuestro caso es
+\begin{equation}
+    d_{k} = 21*(15)^{-1} = 21*29 mod 31 = 20 mod 31
+\end{equation}
+
+Así que la primer letra de texto plano es $x_{1} = 20$
+
+Repetimos este procedimiento para el resto de los puntos de compresión:
+\begin{itemize}
+    \item ((3,1), 18)
+        $3^{3} + 2*3 + 7  = 9 mod 31$
+        Por lo que $z = \pm 3$, y al ser el punto de compresión (3,\textbf{1}), entonces $z = 3 mod 31 = 1 mod 2$
+        Entonces $8*(3,3) = (2,9)$, por lo que 
+        \begin{equation}
+            d_{k} = 18*(2)^{-1} = 18*16 mod 31 = 9 mod 31
+        \end{equation}
+        Así que $x_{2} = 9$
+    \item ((17,0), 19)
+        $17^{3} + 2*17 + 7  = 25 mod 31$
+        Por lo que $z = \pm 5$, y al ser el punto de compresión (17,\textbf{0}), entonces $z = -5 mod 31 = 26 mod 31 = 0 mod 2$
+        Entonces $8*(17,26) = (30,29)$, por lo que 
+        \begin{equation}
+            d_{k} = 19*(30)^{-1} = 19*30 mod 31 = 12 mod 31
+        \end{equation}
+        Así que $x_{3} = 12$
+        
+    \item ((28,0), 8)
+        $28^{3} + 2*28 + 7  = 5 mod 31$
+        Para encontrar la raíz de $y$, es más fácil si notamos que $5 mod 31 = 36 mod 31$
+        Por lo que $z = \pm 6$, y al ser el punto de compresión (20,\textbf{0}), entonces $z = 6 mod 31 = 0 mod 2$
+        Entonces $8*(28,6) = (14,19)$, por lo que 
+        \begin{equation}
+            d_{k} = 8*(14)^{-1} = 18*20 mod 31 = 5 mod 31
+        \end{equation}
+        Así que $x_{2} = 5$
+\end{itemize}
+
+Por lo tanto tenemos la cadena de texto plano $X =20, 9, 12, 5$

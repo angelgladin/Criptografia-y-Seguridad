@@ -1,0 +1,39 @@
+
+Sabemos que los puntos de la curva elíptica $y^{2} = x^{3} + ax +b$ definen un grupo abeliano en $\mathbf{F}_{q}$ si 
+\begin{equation}
+    (4a^{3} + 27b^{2}) mod p \neq 0 mod p
+\end{equation}
+
+En este caso $4*33^{3} + 27*2^{2} = 236 mod 347$
+Por lo que la curva puede ser usada para encriptar.
+Como $|\mathbf{E}| = 358 = 179*2$, en la práctica no sería usada pues su tamaño es muy pequeño.
+
+El orden de P, que es el entero positivo $k$  más pequeño tal que  $kP = \infty$, calculamos $k$ de la forma descrita en la sección 4.3.3 del libro \textbf{Elliptic Curves, Number Theory  and  Cryptography, Lawrence  C. Washington}, usando el algoritmo de \textit{Paso grande, paso chico}
+
+Las siguientes son algunas funciones generales, programadas en Julia (plataforma en línea https://juliabox.com)
+
+\lstinputlisting[language=Python]{funciones_generales.py}
+
+El algoritmo de \textit{Paso grande, paso chico} para el punto P, es el siguiente
+\begin{enumerate}
+    \item Calcula Q = (q+1)P
+    \inputminted{python}{4a_1.py}
+    
+    \item Elige un entero $m$ tal que  $m>q^{1/4}$. Calcula y guarda los puntos $jP$ para j = 0, 1, 2,...,m
+    \lstinputlisting[language=Python]{4a_2.py}
+    
+    \item Calcula los puntos $ Q + k(2mP)$ para $k = −m, −(m − 1),...,m$ hasta que encuentres la igualdad $Q+k(2mP) = \pm jP$ Para algún punto (o su negativo) de la lista
+    \lstinputlisting[language=Python]{4a_3.py}
+    
+    Con este resultado, concluimos que $(q + 1 ´+2mk \mp j) P = \infty$
+    
+    \item  Sea $ M = q + 1 ´+2mk \mp j$, factoriza $M$, donde $p_{1},...,p_{r}$ sus factores primos. 
+    Calcula $(M/p_{i})P$ para cada $i = 1,...,r$. Si $(M/p_{i})P = \inf$ entonces reemplaza $M$ por $M/p_{i}$ y vuelve a factoriza esta nueva $M$. Repite el proceso hasta que $(M/p_{i})P \neq \inf$ para todo $i$. Entonces $M$ es el orden de P.
+    \lstinputlisting[language=Python]{4a_4.py}
+    En nuestro caso $M = 2*179$, como $(M/2)P = \inf$ y $(M/179)P \neq \inf$, concluimos que $179$ es el orden de P. 
+    
+    Los valores entre los que se puede escoger la llave privada están limitados por el orden de P $ = 179$, por lo que $d \in [1,179-1]$
+    
+    
+    
+\end{enumerate}

@@ -1,0 +1,11 @@
+En este cso, tenemos como sistema de encriptación a ElGamal.
+Para desencriptar, lo que debemos de hacer es calcular $M = C_{2} - dM_{1}$, con d=101 la llave prvada.
+Para hacerlo es muy sencillo, usando las funciones anteriormente definidas, sólo calculamos lo siguiente 
+\lstinputlisting[language=Python]{4b_1.py}
+
+Obteniendo como punto original a $M = (74,87)$, y el mensaje original es m=74, debido a la forma en que se encripta un mensaje en ElGamal. 
+Si quisieramos encontrar el número aleatorio $k$ con el que fue cifrado el mensaje enviado, sólo debemos seguir el algoritmo de \textit{paso grande, paso chico}
+
+\lstinputlisting[language=Python]{4b_2.py}
+
+De esto obtenemos que $k = 7$, y comporbamos que el mensaje descifrado sí es correcto.
