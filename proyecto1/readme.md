@@ -6,7 +6,7 @@
 
 Criptografía y Seguridad - Facultad de Ciencias, UNAM.
 
-* Profesor: Criptografía y Seguridad
+* Profesor: Manuel Díaz Díaz
 * Ayudante: Gerardo Rubén López Hernández
 * Laboratorio: José Canek García Aguilar
 
